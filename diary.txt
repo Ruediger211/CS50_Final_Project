@@ -121,3 +121,8 @@ Downloaded the project from the CS50 world onto local PC
 Idea for presentation of the final project: wortwolke24.de with all languages, platforms, etc. that I used for final project
 Next step: get app run localy
 git-bash / review steps for setup of the local flask server
+
+18.11.2021
+local flask server is running
+pushed project to git
+
