@@ -1,0 +1,123 @@
+21.10.2021:
+created favicon - does not work yet
+copied basic files from finance: templates index, layout, login, register, apology.html, application.py, styles.css, finance.db, helpers.py, requirements.txt
+changed CS50 finance to "rate it" in layout.html
+started to implement /register
+
+22.10.2021
+tried out some changes for the font-size of "rate it" in CSS
+created a new database family
+created tables family_members, destinations
+open: table ratings
+created new apology using a jpg from imgur
+changed /register so that it uses family.db instead of finance.db
+
+23.10.2021
+changed /login so that a registerd user can login
+changed items in header to destinations, books, movies
+created destinations.html
+started to implement /destinations: does not work yet
+
+25.10.2021
+uncomented @ line... works
+added field 'rating' to table destinations
+added field 'rate me' to table destinations containing link to /rate
+started to implement /rate. Next step: retrieve user (using session?) and item (tricky?) and display it on rate.html
+
+26.10.2021
+removed API connection, lookup, usd: not necessary for my ap
+added some text in rate.html
+continued implementation of /rate
+added some checks: rating provided? integer between 1 and 5?
+started working with session in /login
+
+28.10.2021
+tried to pass the name of the destination in the table of destinations to /rate: without success
+also tried to use button instead of <a>: without success
+json? look into jinja, see bookmarks
+favicon works since today without having changed anything
+
+29.10.2021
+it seems to be quite tricky to pass data from the table of destinations to /rate
+instead, there could be a page where you choose your item from a drop down menu and then rate it
+
+30.10.2021
+instead of having separate links in every line of the table, added one button for rating
+added one button vor adding
+implemented @app.route("/add")
+implemented add(): add new destination to the table: works
+
+31.10.2021
+Idea for modification: add column user (who is rating), 5 stars instead of number input (available in Bootstrap?)
+deleted button "add rating", instead --> Top Ten
+drop down list for destinations, that are allready in the list
+
+01.11.2021
+implemented top10.html with SELECT name + avg rating from database of all destinations
+googled different ways to deploy: decided on Heroku
+
+02.11.2021
+Getting Started on Heroku:
+Installed Chocolatey
+Installed Python3.10
+Installed PostgreSQL
+Installed Git for Windows
+Configured GIT
+Installed Heroku CLI - Login works
+Cloned Python-Getting-Started
+
+05.11.2021
+Implemented /logout
+Dropdown list destination: SELECT DISTINCT: each destination only once
+removed TV-Shows
+to be done: add the user who rated to the destinations table
+to be done: make each item in the list of destinations clickable
+to be done: find a way to reuse /add and /top10 for books and movies
+continued getting started on Heroku
+
+06.11.2021
+made each item in the list of destinations clickable
+learned how to pass the item from the calling page into the @route: "<item>"
+just in case: googled nizza-classification :-). Rate-It is probably registered.
+
+07.11.2021
+Youtube Codemy How To Use Python On A Web Page With Jinja2 - Flask Fridays #2
+implemented /destination
+added user_id column in destinations
+SELECT ... FROM destinations JOIN family_members ON family_members.id = destinations.user_id etc.
+added Header for /destination
+
+09.11.2021
+Continued Heroku getting started with python until "define config vars"
+
+10.11.2021
+Audio Book on SQL
+Think Reactor AI Podcast
+
+11.11.2021
+Continued Heroku getting started with python
+Database: Postgresql is more suitable for heroku than sqlite: to be changed in app
+sqlalchemy might be a good choice, also demonstated in Codemy Flask Fridays (#8)
+
+12.11.2021
+Watched first two and a half videos from Codemy Flask Fridays
+
+13.11.2021
+Continued Codemy Flask Friday Videos
+
+14.11.2021
+Audio Book on SQL
+Think Reactor AI Podcast
+
+15.11.2021
+Audio Book on SQL
+Think Reactor AI Podcast
+
+17.11.2021
+Continued Codemy Flask Friday Videos: CSS, images, Java Script, forms with wtf, messages with flask.flash
+Next step will be SQLalchemy, so first of all: get application out of cs50 world into local platform
+Tasks for the next days Sublime Text, PostgreSQL, SQLalchemy, local server, later: Heroku, git, github, chocolatey, 
+Downloaded the project from the CS50 world onto local PC
+Idea for presentation of the final project: wortwolke24.de with all languages, platforms, etc. that I used for final project
+Next step: get app run localy
+git-bash / review steps for setup of the local flask server

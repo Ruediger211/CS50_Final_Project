@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add
+{% endblock %}
+
+{% block main %}
+    <form action="/add" method="post">
+        <!--<div class="form-group">-->
+        <!--    <input autocomplete="off" autofocus class="form-control" name="destination" placeholder="Destination" type="text">-->
+        <!--</div>-->
+        <div class="form-group">
+            <input name="destination" list=destinations>
+            <datalist id=destinations>
+                {% for item in list_destinations %}
+                    <option value={{item['dest_name']}}>{{item['dest_name']}}</option>
+                {% endfor %}
+            </datalist>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="description" placeholder="Description" type="text">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="rating" placeholder="Rating" type="number">
+        </div>
+        <button class="btn btn-primary" type="submit">Add</button>
+    </form>
+{% endblock %}

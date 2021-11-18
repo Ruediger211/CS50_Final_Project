@@ -1,0 +1,2 @@
+import rating
+help(rating)

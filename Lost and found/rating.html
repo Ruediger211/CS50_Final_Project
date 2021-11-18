@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Rate me
+{% endblock %}
+
+{% block main %}
+    <h4>your name: {{session["name"]}} </h4>
+    <h4>your item: {{item}}</h4>
+    <form action="/rate" method="post">
+        <div class="form-group">
+            <!--<input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">-->
+            <h4></h4>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="rating" placeholder="Rating" type="integer">
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+{% endblock %}

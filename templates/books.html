@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Destinations
+{% endblock %}
+
+{% block main %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in destinations %}
+            <tr>
+                <td>{{row['dest_id']}}</td>
+                <td>{{row['dest_name']}}</td>
+                <td>{{row['description']}}</td>
+                <td>{{row['rating']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br><br>
+    <div class="form-group">
+        <form action="/add" method=GET>
+            <button class="btn btn-primary" type="submit" data-inline="true">Add</button>
+        </form>
+        <br>
+        <form action="/top10" method=GET>
+            <button class="btn btn-primary" type="submit" data-inline="true">Top 10</button>
+        </form>
+    </div>
+{% endblock %}
