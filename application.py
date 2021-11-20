@@ -9,12 +9,20 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 
 from helpers import apology, login_required#, lookup, usd
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+from sqlalchemy import text
+
 
 # Configure application
 app = Flask(__name__)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+
+# Add Database
+app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///family.db'
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Ensure responses aren't cached
 @app.after_request
@@ -33,8 +41,8 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# Configure CS50 Library to use SQLite database
-# db = SQL("sqlite:///family.db")
+# Initialize the Database
+db = SQLAlchemy(app)
 
 ###### Make sure API key is set
 #####if not os.environ.get("API_KEY"):
@@ -254,7 +262,9 @@ def register():
 
         # Ensure username does not exist
         # Query database for username
-        rows = db.execute("SELECT * FROM family_members WHERE name = ?", request.form.get("username"))
+        # rows = db.execute("SELECT * FROM family_members WHERE name = ?", request.form.get("username"))
+        sql = text("SELECT * FROM family_members WHERE name = ?", request.form.get("username"))
+        rows = db.engine.execute(sql)
         if len(rows) != 0:
             return apology("username allready in use", 400)
 
