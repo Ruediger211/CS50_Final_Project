@@ -126,3 +126,46 @@ git-bash / review steps for setup of the local flask server
 local flask server is running
 pushed project to git
 
+19.11.2021
+tried out SQLalchemy
+
+20.11.2021
+tried out peewee
+find out more about cursor, fetchall(), tuples, dictionarys, list, return type, execute, execute_sql, 
+
+21.11.2021
+execute_sql returns a list of tuples instead of a list of dictionaries, so rows[0][column name] is not possible
+
+22.11.2021
+App is running localy:
+	Register: OK
+	Register with not matching passwords: OK
+	Register with missing password: OK
+	Register with missing username: OK
+	Login shows old data: TBD
+	Login: OK
+	Login with wrong password: OK
+	Login with missing password: OK
+	Login with missing username: OK
+	/: OK
+	/ Navbar: 
+	/destinations: OK
+	/destinations: item names displayed as links: OK
+	/destinations: links are working: OK
+	/destinations: "Add" and "Top 10" are displayed: OK
+	/destinations: "Add" is working: OK
+	/add: OK
+	/add with missing Description: TBD 
+	/add with missing Rating: TBD
+	/top 10: OK
+	/top 10 item names displayed als links: TBD
+	/books: TBD
+	/movies: TBD
+	Logout: OK
+Next steps: 
+	- find a way to work with database locally
+		- PHP + phpLiteAdmin
+		- SQLite in git bash
+		- MySQL in git bash
+	- translate SQLite database into MySQL database
+	- transfer to Heroku

@@ -49,7 +49,8 @@ def index():
 def destinations():
 
     """Show destinations"""
-    destinations = db.execute_sql("SELECT * FROM destinations")
+    cursor = db.execute_sql("SELECT * FROM destinations")
+    destinations = cursor.fetchall()
     return render_template("destinations.html", destinations=destinations)
 
 
@@ -96,13 +97,16 @@ def add():
 def top10():
 
     user_id = session["user_id"]
-    tops = db.execute_sql("SELECT dest_name, AVG(rating) AS avg FROM destinations GROUP BY dest_name ORDER BY AVG(rating) DESC")
+    cursor = db.execute_sql("SELECT dest_name, AVG(rating) AS avg FROM destinations GROUP BY dest_name ORDER BY AVG(rating) DESC")
+    tops = cursor.fetchall()
     return render_template("top10.html", tops=tops)
 
 @app.route("/destination/<dest>")
 @login_required
 def destination(dest):
-    destination = db.execute_sql("SELECT family_members.name, destinations.description, destinations.dest_name FROM destinations JOIN family_members ON destinations.user_id = family_members.id WHERE dest_name =?", dest)
+    cursor = db.execute_sql("SELECT family_members.name, destinations.description, destinations.dest_name FROM destinations JOIN family_members ON destinations.user_id = family_members.id WHERE dest_name =?", (dest,))
+    destination = cursor.fetchall()
+    print(destination) # returns tuple
     return render_template("destination.html", destination=destination)
 
 @app.route("/login", methods=["GET", "POST"])
@@ -126,7 +130,6 @@ def login():
         # Query database for username
         cursor = db.execute_sql("SELECT * FROM family_members WHERE name = ?", (request.form.get("username"),))
         rows = cursor.fetchall()
-        print(rows)
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0][2], request.form.get("password")):
