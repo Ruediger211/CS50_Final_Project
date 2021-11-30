@@ -9,7 +9,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 from helpers import apology, login_required
 from datetime import datetime
-from peewee import *
+from flask_sqlalchemy import SQLAlchemy
+# from peewee import *
 
 
 # Configure application
@@ -26,6 +27,7 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ruediger:xc#&32n?@localhost/rate_it' # TBD
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
@@ -34,9 +36,9 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Initialize the Database
-db = SqliteDatabase('family.db')
-db.connect()
-
+# db = SqliteDatabase('family.db')
+# db.connect()
+db = SQLAlchemy(app)
 
 @app.route("/")
 @login_required
