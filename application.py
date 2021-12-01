@@ -10,6 +10,10 @@ from datetime import datetime
 from helpers import apology, login_required
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+#import sqlalchemy
+from sqlalchemy import create_engine
+from sqlalchemy.sql import text
+
 # from peewee import *
 
 
@@ -27,7 +31,7 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ruediger:xc#&32n?@localhost/rate_it' # TBD
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ruediger:xc#&32n?@localhost/rate_it'
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
@@ -35,10 +39,12 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+engine = create_engine('postgresql://ruediger:xc#&32n?@localhost/rate_it', echo=True)
+
 # Initialize the Database
 # db = SqliteDatabase('family.db')
 # db.connect()
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
 @app.route("/")
 @login_required
@@ -51,8 +57,11 @@ def index():
 def destinations():
 
     """Show destinations"""
-    cursor = db.execute_sql("SELECT * FROM destinations")
-    destinations = cursor.fetchall()
+    # cursor("SELECT * FROM destinations")
+    # destinations = cursor.fetchall()
+    with engine.connect() as con:
+        statement = text("""SELECT * FROM destinations""")
+        destinations = con.execute(statement)
     return render_template("destinations.html", destinations=destinations)
 
 
@@ -191,8 +200,18 @@ def register():
 
         # Ensure username does not exist
         # Query database for username
-        cursor = db.execute_sql("SELECT * FROM family_members WHERE name = ?", (request.form.get("username"),))
-        rows = cursor.fetchall()
+        # cursor = db.execute_sql("SELECT * FROM family_members WHERE name = ?", (request.form.get("username"),))
+        # rows = cursor.fetchall()
+        with engine.connect() as con:
+            # statement = text("""SELECT * FROM users WHERE name = ?", (request.form.get("username"),)""")
+            statement = text("SELECT * FROM users WHERE name = $1" USING 'Frank')
+            rows = con.execute(statement).fetchall()
+            print("**********************")
+            print()
+            print(rows)
+            print(type(rows))
+            print()
+            print("**********************")
         if len(rows) != 0:
             return apology("username allready in use", 400)
 
