@@ -169,3 +169,41 @@ Next steps:
 		- MySQL in git bash
 	- translate SQLite database into MySQL database
 	- transfer to Heroku
+
+23.11.2021
+PostgresSQL was allready installed
+Get familiar with Postgres with different Youtube Videos (~4-5h)
+No git push today
+
+24.11.2021
+continue Youtube
+
+25.11.2021
+continue Youtube
+
+26.11.2021
+continue Youtube
+
+28.11.2021
+continue Youtube
+
+29.11.2021
+build database and tables in Postgres
+where is database
+how is Postgres database initialized in application.py?
+cursor/fetchall/execute/SQLalchemy/etc.: how can Postgre requests be executed in the application?
+
+30.11.2021
+created new superuser "ruediger" in Postgres
+created new database "rate_it" with owner "ruediger"
+created tables "destinations" and "users" in "rate_it"
+
+01.12.2021
+searched for a way to get the result of request.form.get into the raw SQL
+
+02.12.2021
+the working solution with SQLalchemy and text() is:
+with engine.connect() as con:
+    statement = text("SELECT * FROM users WHERE name=:name").params(name=(request.form.get("username")))
+    rows = con.execute(statement).fetchall()
+changed all database requests accordingly

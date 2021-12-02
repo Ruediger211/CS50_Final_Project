@@ -1,6 +1,4 @@
 import os
-
-# from cs50 import SQL  --> not available outside cs50
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
@@ -10,11 +8,8 @@ from datetime import datetime
 from helpers import apology, login_required
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-#import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
-
-# from peewee import *
 
 
 # Configure application
@@ -31,8 +26,6 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ruediger:xc#&32n?@localhost/rate_it'
-
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
@@ -41,24 +34,16 @@ Session(app)
 
 engine = create_engine('postgresql://ruediger:xc#&32n?@localhost/rate_it', echo=True)
 
-# Initialize the Database
-# db = SqliteDatabase('family.db')
-# db.connect()
-# db = SQLAlchemy(app)
-
 @app.route("/")
 @login_required
 def index():
     return render_template("index.html")
-
 
 @app.route("/destinations")
 @login_required
 def destinations():
 
     """Show destinations"""
-    # cursor("SELECT * FROM destinations")
-    # destinations = cursor.fetchall()
     with engine.connect() as con:
         statement = text("""SELECT * FROM destinations""")
         destinations = con.execute(statement)
@@ -71,7 +56,6 @@ def books():
 
     """Show books"""
     books = db.execute_sql("SELECT * FROM books")
-
     return render_template("books.html", books=books)
 
 
@@ -81,7 +65,6 @@ def movies():
 
     """Show movies"""
     movies = db.execute_sql("SELECT * FROM movies")
-
     return render_template("movies.html", movies=movies)
 
 
@@ -95,12 +78,16 @@ def add():
         description = request.form.get("description")
         rating = request.form.get("rating")
         user_id = session["user_id"]
-        db.execute_sql("INSERT INTO destinations (dest_name, description, rating, user_id) VALUES (?, ?, ?, ?)", (name, description, rating, user_id))
+        with engine.connect() as con:
+            statement = text("INSERT INTO destinations (dest_name, description, rating, user_id) VALUES (:dn, :dsc, :rate, :uid)").params(dn=name, dsc=description, rate=rating, uid=user_id)
+            con.execute(statement)
         return redirect("./destinations")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
-        list_destinations=db.execute_sql("SELECT DISTINCT dest_name FROM destinations")
+        with engine.connect() as con:
+            statement = text("SELECT DISTINCT dest_name FROM destinations")
+            list_destinations = con.execute(statement).fetchall()
         return render_template("add.html", list_destinations=list_destinations)
 
 @app.route("/top10")
@@ -108,16 +95,19 @@ def add():
 def top10():
 
     user_id = session["user_id"]
-    cursor = db.execute_sql("SELECT dest_name, AVG(rating) AS avg FROM destinations GROUP BY dest_name ORDER BY AVG(rating) DESC")
-    tops = cursor.fetchall()
+    with engine.connect() as con:
+        statement = text("SELECT dest_name, ROUND(AVG(rating), 1) AS avg FROM destinations GROUP BY dest_name ORDER BY AVG(rating) DESC")
+        tops = con.execute(statement).fetchall()
     return render_template("top10.html", tops=tops)
 
 @app.route("/destination/<dest>")
 @login_required
 def destination(dest):
-    cursor = db.execute_sql("SELECT family_members.name, destinations.description, destinations.dest_name FROM destinations JOIN family_members ON destinations.user_id = family_members.id WHERE dest_name =?", (dest,))
-    destination = cursor.fetchall()
-    print(destination) # returns tuple
+    # cursor = db.execute_sql("SELECT family_members.name, destinations.description, destinations.dest_name FROM destinations JOIN family_members ON destinations.user_id = family_members.id WHERE dest_name =?", (dest,))
+    # destination = cursor.fetchall()
+    with engine.connect() as con:
+            statement = text("SELECT users.name, destinations.description, destinations.dest_name FROM destinations JOIN users ON destinations.user_id = users.id WHERE dest_name =:dn").params(dn=dest)
+            destination = con.execute(statement).fetchall()
     return render_template("destination.html", destination=destination)
 
 @app.route("/login", methods=["GET", "POST"])
@@ -139,17 +129,13 @@ def login():
             return apology("must provide password", 403)
 
         # Query database for username
-        cursor = db.execute_sql("SELECT * FROM family_members WHERE name = ?", (request.form.get("username"),))
-        rows = cursor.fetchall()
+        with engine.connect() as con:
+            statement = text("SELECT * FROM users WHERE name=:name").params(name=(request.form.get("username")))
+            rows = con.execute(statement).fetchall()
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0][2], request.form.get("password")):
             return apology("invalid username and/or password", 403)
-
-        # in the CS50 SQL module execute("SQL statement", username)
-        # with peewee: execute_sql("SQL statement", (username,)), the username is in a tuple
-        # a cursor is returned and to get a list, fetchall() has to be used. A list of tuples is returned
-        # instead of a list of dictionaries!
 
         # Remember which user has logged in
         session["user_id"] = rows[0][0]
@@ -200,26 +186,18 @@ def register():
 
         # Ensure username does not exist
         # Query database for username
-        # cursor = db.execute_sql("SELECT * FROM family_members WHERE name = ?", (request.form.get("username"),))
-        # rows = cursor.fetchall()
         with engine.connect() as con:
-            # statement = text("""SELECT * FROM users WHERE name = ?", (request.form.get("username"),)""")
-            statement = text("SELECT * FROM users WHERE name = $1" USING 'Frank')
+            statement = text("SELECT * FROM users WHERE name=:n").params(n=(request.form.get("username")))
             rows = con.execute(statement).fetchall()
-            print("**********************")
-            print()
-            print(rows)
-            print(type(rows))
-            print()
-            print("**********************")
         if len(rows) != 0:
             return apology("username allready in use", 400)
 
         username = request.form.get("username")
         password = request.form.get("password")
         hash = generate_password_hash(password)
-
-        db.execute_sql("INSERT INTO 'family_members' ('name', 'hash') VALUES (?, ?)", (username, hash))
+        with engine.connect() as con:
+            statement = text("INSERT INTO users (name, hash) VALUES (:name, :hash)").params(name=username, hash=hash)
+            con.execute(statement)
 
         # Redirect user to login page
         return redirect("/login")
