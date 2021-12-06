@@ -4,3 +4,4 @@ requests
 SQLalchemy
 gunicorn
 flask_sqlalchemy
+psycopg2
