@@ -3,3 +3,4 @@ Flask-Session
 requests
 SQLalchemy
 gunicorn
+flask_sqlalchemy
