@@ -32,7 +32,8 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-engine = create_engine('postgresql://ruediger:xc#&32n?@localhost/rate_it', echo=True)
+#engine = create_engine('postgresql://ruediger:xc#&32n?@localhost/rate_it', echo=True) # Local
+engine = create_engine('postgres://lfohixtljuqymv:e2f549be63daa475b4c0a719534e4a6cb5fd8fd2ffb55b97b84627e23f22a99c@ec2-44-199-19-138.compute-1.amazonaws.com:5432/darlujrg42mm3q', echo=True) # on Heroku
 
 @app.route("/")
 @login_required
@@ -48,7 +49,6 @@ def destinations():
         statement = text("""SELECT * FROM destinations""")
         destinations = con.execute(statement)
     return render_template("destinations.html", destinations=destinations)
-
 
 @app.route("/books", methods=["GET", "POST"])
 @login_required
