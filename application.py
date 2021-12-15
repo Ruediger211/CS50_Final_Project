@@ -30,6 +30,7 @@ def after_request(response):
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
+app.config["SECRET_KEY"] = "f69-&HHt31;0kj6r?§dwWeEv"
 Session(app)
 
 #engine = create_engine('postgresql://ruediger:xc#&32n?@localhost/rate_it', echo=True) # Local
