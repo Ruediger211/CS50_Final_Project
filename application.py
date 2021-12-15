@@ -140,6 +140,14 @@ def login():
         # Remember which user has logged in
         session["user_id"] = rows[0][0]
         session["name"] = rows[0][1]
+        print("**************")
+        print("*            *")
+        print("*            *")
+        print(rows[0][0])
+        print(rows[0][1])
+        print("*            *")
+        print("*            *")
+        print("**************")
 
         # Redirect user to home page
         return redirect("/")
