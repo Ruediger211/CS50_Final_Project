@@ -275,7 +275,7 @@ TODO: test of basic usage
 TODO: safety (mind SQL injection)
 TODO: test on mobile devices
 TODO: ask other users to use web app
-TODO: remove movies and books
+TODO: remove movies and books or add...
 TODO: video
 TODO: README
 TODO: add rating to Destination page

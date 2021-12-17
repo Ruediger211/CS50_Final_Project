@@ -105,7 +105,7 @@ def top10():
 @login_required
 def destination(dest):
     with engine.connect() as con:
-            statement = text("SELECT users.name, destinations.description, destinations.dest_name FROM destinations JOIN users ON destinations.user_id = users.id WHERE dest_name =:dn").params(dn=dest)
+            statement = text("SELECT users.name, destinations.description, destinations.dest_name, destinations.rating FROM destinations JOIN users ON destinations.user_id = users.id WHERE dest_name =:dn").params(dn=dest)
             destination = con.execute(statement).fetchall()
     return render_template("destination.html", destination=destination)
 
