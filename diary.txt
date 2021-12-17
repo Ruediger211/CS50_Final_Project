@@ -278,6 +278,6 @@ TODO: ask other users to use web app
 TODO: remove movies and books or add...
 TODO: video
 TODO: README
-TODO: add rating to Destination page
-TODO: change order: Put add and top 10 on top of the screen or even in the navbar
+done: add rating to Destination page
+done: change order: Put add and top 10 on top of the screen or even in the navbar
 TODO: On mobile phone: not enough place. Work out responsiveness.
