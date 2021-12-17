@@ -51,22 +51,22 @@ def destinations():
         destinations = con.execute(statement)
     return render_template("destinations.html", destinations=destinations)
 
-@app.route("/books", methods=["GET", "POST"])
-@login_required
-def books():
+# @app.route("/books", methods=["GET", "POST"])
+# @login_required
+# def books():
 
-    """Show books"""
-    books = db.execute_sql("SELECT * FROM books")
-    return render_template("books.html", books=books)
+#     """Show books"""
+#     books = db.execute_sql("SELECT * FROM books")
+#     return render_template("books.html", books=books)
 
 
-@app.route("/movies", methods=["GET", "POST"])
-@login_required
-def movies():
+# @app.route("/movies", methods=["GET", "POST"])
+# @login_required
+# def movies():
 
-    """Show movies"""
-    movies = db.execute_sql("SELECT * FROM movies")
-    return render_template("movies.html", movies=movies)
+#     """Show movies"""
+#     movies = db.execute_sql("SELECT * FROM movies")
+#     return render_template("movies.html", movies=movies)
 
 
 @app.route("/add", methods=["GET", "POST"])
@@ -104,8 +104,6 @@ def top10():
 @app.route("/destination/<dest>")
 @login_required
 def destination(dest):
-    # cursor = db.execute_sql("SELECT family_members.name, destinations.description, destinations.dest_name FROM destinations JOIN family_members ON destinations.user_id = family_members.id WHERE dest_name =?", (dest,))
-    # destination = cursor.fetchall()
     with engine.connect() as con:
             statement = text("SELECT users.name, destinations.description, destinations.dest_name FROM destinations JOIN users ON destinations.user_id = users.id WHERE dest_name =:dn").params(dn=dest)
             destination = con.execute(statement).fetchall()
@@ -141,14 +139,6 @@ def login():
         # Remember which user has logged in
         session["user_id"] = rows[0][0]
         session["name"] = rows[0][1]
-        print("**************")
-        print("*            *")
-        print("*            *")
-        print(rows[0][0])
-        print(rows[0][1])
-        print("*            *")
-        print("*            *")
-        print("**************")
 
         # Redirect user to home page
         return redirect("/")
