@@ -158,45 +158,45 @@ def book(item):
 
 ################################################################################
 
-@app.route("/add", methods=["GET", "POST"])
-@login_required
-def add():
+# @app.route("/add", methods=["GET", "POST"])
+# @login_required
+# def add():
 
-    #User reached route via POST (as by submitting a form via POST)
-    if request.method == "POST":
-        name = request.form.get("destination")
-        description = request.form.get("description")
-        rating = request.form.get("rating")
-        user_id = session["user_id"]
-        with engine.connect() as con:
-            statement = text("INSERT INTO destinations (dest_name, description, rating, user_id) VALUES (:dn, :dsc, :rate, :uid)").params(dn=name, dsc=description, rate=rating, uid=user_id)
-            con.execute(statement)
-        return redirect("./destinations")
+#     #User reached route via POST (as by submitting a form via POST)
+#     if request.method == "POST":
+#         name = request.form.get("destination")
+#         description = request.form.get("description")
+#         rating = request.form.get("rating")
+#         user_id = session["user_id"]
+#         with engine.connect() as con:
+#             statement = text("INSERT INTO destinations (dest_name, description, rating, user_id) VALUES (:dn, :dsc, :rate, :uid)").params(dn=name, dsc=description, rate=rating, uid=user_id)
+#             con.execute(statement)
+#         return redirect("./destinations")
 
-    # User reached route via GET (as by clicking a link or via redirect)
-    else:
-        with engine.connect() as con:
-            statement = text("SELECT DISTINCT dest_name FROM destinations")
-            list_destinations = con.execute(statement).fetchall()
-        return render_template("add.html", list_destinations=list_destinations)
+#     # User reached route via GET (as by clicking a link or via redirect)
+#     else:
+#         with engine.connect() as con:
+#             statement = text("SELECT DISTINCT dest_name FROM destinations")
+#             list_destinations = con.execute(statement).fetchall()
+#         return render_template("add.html", list_destinations=list_destinations)
 
-@app.route("/top10")
-@login_required
-def top10():
+# @app.route("/top10")
+# @login_required
+# def top10():
 
-    user_id = session["user_id"]
-    with engine.connect() as con:
-        statement = text("SELECT dest_name, ROUND(AVG(rating), 1) AS avg FROM destinations GROUP BY dest_name ORDER BY AVG(rating) DESC")
-        tops = con.execute(statement).fetchall()
-    return render_template("top10.html", tops=tops)
+#     user_id = session["user_id"]
+#     with engine.connect() as con:
+#         statement = text("SELECT dest_name, ROUND(AVG(rating), 1) AS avg FROM destinations GROUP BY dest_name ORDER BY AVG(rating) DESC")
+#         tops = con.execute(statement).fetchall()
+#     return render_template("top10.html", tops=tops)
 
-@app.route("/destination/<dest>")
-@login_required
-def destination(dest):
-    with engine.connect() as con:
-            statement = text("SELECT users.name, destinations.description, destinations.dest_name, destinations.rating FROM destinations JOIN users ON destinations.user_id = users.id WHERE dest_name =:dn").params(dn=dest)
-            destination = con.execute(statement).fetchall()
-    return render_template("destination.html", destination=destination)
+# @app.route("/destination/<dest>")
+# @login_required
+# def destination(dest):
+#     with engine.connect() as con:
+#             statement = text("SELECT users.name, destinations.description, destinations.dest_name, destinations.rating FROM destinations JOIN users ON destinations.user_id = users.id WHERE dest_name =:dn").params(dn=dest)
+#             destination = con.execute(statement).fetchall()
+#     return render_template("destination.html", destination=destination)
 
 ################################################################################
 
