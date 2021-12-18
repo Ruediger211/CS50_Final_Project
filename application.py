@@ -91,7 +91,7 @@ def add():
         print("*                *")
         print("*                *")
         print("******************")
-        if rating not in [1, 2, 3, 4, 5]:
+        if rating not in ["1", "2", "3", "4", "5"]:
             return apology("Please choose an integer between 1 and 5", 400)
         user_id = session["user_id"]
         with engine.connect() as con:
