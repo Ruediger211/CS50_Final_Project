@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Top 10
+{% endblock %}
+
+{% block main %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Average Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for top in tops %}
+            <tr>
+                <td><a href='/book/{{top[0]}}'>{{top[0]}}</a></td>
+                <td>{{top[1]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
