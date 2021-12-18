@@ -82,6 +82,15 @@ def add():
         name = request.form.get("destination")
         description = request.form.get("description")
         rating = request.form.get("rating")
+        print("******************")
+        print("*                *")
+        print("*                *")
+        print("*  rating = ", rating)
+        print("*  type(rating) = ", type(rating))
+        print("*                *")
+        print("*                *")
+        print("*                *")
+        print("******************")
         if rating not in [1, 2, 3, 4, 5]:
             return apology("Please choose an integer between 1 and 5", 400)
         user_id = session["user_id"]
