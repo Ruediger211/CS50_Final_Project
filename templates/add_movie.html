@@ -12,7 +12,7 @@
         <div class="form-group">
             <input name="movie" list=movies>
             <datalist id=movies>
-                {% for item in list_books %}
+                {% for item in list_movies %}
                     <option value={{item['movie_name']}}>{{item['movie_name']}}</option>
                 {% endfor %}
             </datalist>

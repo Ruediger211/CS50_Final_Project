@@ -7,11 +7,11 @@
 {% block main %}
 
     <div class="form-group">
-        <form action="/add_movie" method=GET value=destinations>
+        <form action="/add_movie" method=GET value=movies>
             <button class="btn btn-primary" type="submit" data-inline="true">Add</button>
         </form>
         <br>
-        <form action="/top10_movies" method=GET value=destinations>
+        <form action="/top10_movies" method=GET value=movies>
             <button class="btn btn-primary" type="submit" data-inline="true">Top 10</button>
         </form>
     </div>
@@ -28,10 +28,10 @@
             </tr>
         </thead>
         <tbody>
-            {% for row in destinations %}
+            {% for row in movies %}
             <tr>
                 <td>{{row[0]}}</td>
-                <td><a href='/destination/{{row[1]}}'>{{row[1]}}</a></td>
+                <td><a href='/movie/{{row[1]}}'>{{row[1]}}</a></td>
                 <td>{{row[2]}}</td>
                 <td>{{row[3]}}</td>
             </tr>
