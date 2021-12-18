@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Book
+{% endblock %}
+
+{% block main %}
+    <h1>Ratings for {{book[0][2]}}:</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in book %}
+            <tr>
+                <td>{{row[0]}}</td>
+                <td>{{row[1]}}</td>
+                <td>{{row[3]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!--<br><br>-->
+    <!--<div class="form-group">-->
+    <!--    <form action="/add" method=GET value=destinations>-->
+    <!--        <button class="btn btn-primary" type="submit" data-inline="true">Add</button>-->
+    <!--    </form>-->
+    <!--    <br>-->
+    <!--    <form action="/top10" method=GET value=destinations>-->
+    <!--        <button class="btn btn-primary" type="submit" data-inline="true">Top 10</button>-->
+    <!--    </form>-->
+    <!--</div>-->
+{% endblock %}
