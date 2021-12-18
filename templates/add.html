@@ -22,6 +22,11 @@
         </div>
         <div class="form-group">
             <input class="form-control" name="rating" placeholder="Rating" type="number">
+            <datalist id=ratings>
+                {% for item in [1, 2, 3, 4, 5] %}
+                    <option value={{item}}>{{item}}</option>
+                {% endfor %}
+            </datalist>
         </div>
         <button class="btn btn-primary" type="submit">Add</button>
     </form>

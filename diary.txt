@@ -281,3 +281,11 @@ TODO: README
 done: add rating to Destination page
 done: change order: Put add and top 10 on top of the screen or even in the navbar
 TODO: On mobile phone: not enough place. Work out responsiveness.
+
+17.12.2021: 
+worked on TODO list above
+Added /books
+
+18.12.2021:
+GitGuardian sent warning: PostgreSQL credentials were leaked on Git (hard coded)
+changed to use of config var DATABASE_URL in application.py
