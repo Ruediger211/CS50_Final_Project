@@ -136,7 +136,7 @@ def add_book():
         with engine.connect() as con:
             statement = text("SELECT DISTINCT book_name FROM books")
             list_books = con.execute(statement).fetchall()
-        return render_template("add_books.html", list_books=list_books)
+        return render_template("add_book.html", list_books=list_books)
 
 @app.route("/top10_books")
 @login_required
