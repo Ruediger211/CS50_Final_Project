@@ -152,7 +152,7 @@ def top10_books():
 @login_required
 def book(item):
     with engine.connect() as con:
-            statement = text("SELECT users.name, books.description, books.book_name, books.rating FROM destinations JOIN users ON books.user_id = users.id WHERE book_name =:bn").params(bn=item)
+            statement = text("SELECT users.name, books.description, books.book_name, books.rating FROM books JOIN users ON books.user_id = users.id WHERE book_name =:bn").params(bn=item)
             book = con.execute(statement).fetchall()
     return render_template("book.html", book=book)
 
