@@ -5,20 +5,17 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/add_book" method="post">
+    <form action="/add_movie" method="post">
         <!--<div class="form-group">-->
         <!--    <input autocomplete="off" autofocus class="form-control" name="destination" placeholder="Destination" type="text">-->
         <!--</div>-->
         <div class="form-group">
-            <input name="book" list=books>
-            <datalist id=books>
+            <input name="movie" list=movies>
+            <datalist id=movies>
                 {% for item in list_books %}
-                    <option value={{item['book_name']}}>{{item['book_name']}}</option>
+                    <option value={{item['movie_name']}}>{{item['movie_name']}}</option>
                 {% endfor %}
             </datalist>
-        </div>
-        <div class="form-group">
-            <input class="form-control" name="author" placeholder="Author" type="text">
         </div>
         <div class="form-group">
             <input class="form-control" name="description" placeholder="Description" type="text">

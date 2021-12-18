@@ -5,6 +5,19 @@
 {% endblock %}
 
 {% block main %}
+
+    <div class="form-group">
+        <form action="/add_movie" method=GET value=destinations>
+            <button class="btn btn-primary" type="submit" data-inline="true">Add</button>
+        </form>
+        <br>
+        <form action="/top10_movies" method=GET value=destinations>
+            <button class="btn btn-primary" type="submit" data-inline="true">Top 10</button>
+        </form>
+    </div>
+
+    <br><br>
+
     <table>
         <thead>
             <tr>
@@ -15,24 +28,15 @@
             </tr>
         </thead>
         <tbody>
-            {% for row in movies %}
+            {% for row in destinations %}
             <tr>
-                <td>{{row['movie_id']}}</td>
-                <td>{{row['movie_name']}}</td>
-                <td>{{row['description']}}</td>
-                <td>{{row['ratinge']}}</td>
+                <td>{{row[0]}}</td>
+                <td><a href='/destination/{{row[1]}}'>{{row[1]}}</a></td>
+                <td>{{row[2]}}</td>
+                <td>{{row[3]}}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <br><br>
-    <div class="form-group">
-        <form action="/add" method=GET>
-            <button class="btn btn-primary" type="submit" data-inline="true">Add</button>
-        </form>
-        <br>
-        <form action="/top10" method=GET>
-            <button class="btn btn-primary" type="submit" data-inline="true">Top 10</button>
-        </form>
-    </div>
+
 {% endblock %}
