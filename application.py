@@ -190,9 +190,9 @@ def top10_movies():
         tops = con.execute(statement).fetchall()
     return render_template("top10_movies.html", tops=tops)
 
-@app.route("/movies/<item>")
+@app.route("/movie/<item>")
 @login_required
-def destination(item):
+def movie(item):
     with engine.connect() as con:
             statement = text("SELECT users.name, movies.description, movies.movie_name, movies.rating FROM movies JOIN users ON movies.user_id = users.id WHERE movie_name =:mn").params(mn=item)
             movie = con.execute(statement).fetchall()
