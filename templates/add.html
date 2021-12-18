@@ -10,7 +10,7 @@
         <!--    <input autocomplete="off" autofocus class="form-control" name="destination" placeholder="Destination" type="text">-->
         <!--</div>-->
         <div class="form-group">
-            <input name="destination" list=destinations>
+            <input name="destination" list=destinations placeholder="Destination" type="text">
             <datalist id=destinations>
                 {% for item in list_destinations %}
                     <option value={{item['dest_name']}}>{{item['dest_name']}}</option>
@@ -22,7 +22,7 @@
         </div>
         <div class="form-group">
             <!--<input class="form-control" name="rating" placeholder="Rating" type="number">-->
-            <input name="rating" list=ratings>
+            <input name="rating" list=ratings placeholder="Rating" type="number">
             <datalist id=ratings>
                 {% for item in [1, 2, 3, 4, 5] %}
                     <option value={{item}}>{{item}}</option>
