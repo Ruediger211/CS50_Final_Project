@@ -34,7 +34,8 @@ app.config["SECRET_KEY"] = "f69-&HHt31;0kj6r?§dwWeEv"
 #Session(app)
 
 #engine = create_engine('postgresql://ruediger:xc#&32n?@localhost/rate_it', echo=True) # Local
-engine = create_engine('postgresql://lfohixtljuqymv:e2f549be63daa475b4c0a719534e4a6cb5fd8fd2ffb55b97b84627e23f22a99c@ec2-44-199-19-138.compute-1.amazonaws.com:5432/darlujrg42mm3q', echo=True) # on Heroku
+#engine = create_engine('postgresql://lfohixtljuqymv:e2f549be63daa475b4c0a719534e4a6cb5fd8fd2ffb55b97b84627e23f22a99c@ec2-44-199-19-138.compute-1.amazonaws.com:5432/darlujrg42mm3q', echo=True) # on Heroku
+engine = create_engine(DATABASE_URL, echo=True) # on Heroku
 
 @app.route("/")
 @login_required
