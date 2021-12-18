@@ -21,7 +21,8 @@
             <input class="form-control" name="description" placeholder="Description" type="text">
         </div>
         <div class="form-group">
-            <input class="form-control" name="rating" placeholder="Rating" type="number">
+            <!--<input class="form-control" name="rating" placeholder="Rating" type="number">-->
+            <input name="rating" list=ratings>
             <datalist id=ratings>
                 {% for item in [1, 2, 3, 4, 5] %}
                     <option value={{item}}>{{item}}</option>
