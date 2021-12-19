@@ -82,18 +82,16 @@ def add():
         name = request.form.get("destination")
         description = request.form.get("description")
         rating = request.form.get("rating")
-        print("******************")
-        print("*                *")
-        print("*                *")
-        print("*  rating = ", rating)
-        print("*  type(rating) = ", type(rating))
-        print("*                *")
-        print("*                *")
-        print("*                *")
-        print("******************")
         if rating not in ["1", "2", "3", "4", "5"]:
             return apology("Please choose an integer between 1 and 5", 400)
         user_id = session["user_id"]
+
+        with engine.connect() as con:
+            statement = text("SELECT * FROM destinations WHERE dest_name=:n AND user_id=:u").params(n=(request.form.get("username")), u=user_id)
+            rows = con.execute(statement).fetchall()
+        if len(rows) != 0:
+            return apology("sorry, you allready rated this destination", 400)
+
         with engine.connect() as con:
             statement = text("INSERT INTO destinations (dest_name, description, rating, user_id) VALUES (:dn, :dsc, :rate, :uid)").params(dn=name, dsc=description, rate=rating, uid=user_id)
             con.execute(statement)
