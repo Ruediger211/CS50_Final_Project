@@ -47,7 +47,7 @@ def destinations():
 
     """Show destinations"""
     with engine.connect() as con:
-        statement = text("""SELECT * FROM destinations""")
+        statement = text("""SELECT DISTINCT dest_name FROM destinations ORDER BY dest_name""")
         destinations = con.execute(statement)
     return render_template("destinations.html", destinations=destinations)
 
