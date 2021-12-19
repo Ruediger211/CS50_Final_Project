@@ -90,7 +90,7 @@ def add():
             statement = text("SELECT * FROM destinations WHERE dest_name=:n AND user_id=:u").params(n=(request.form.get("destination")), u=user_id)
             rows = con.execute(statement).fetchall()
         if len(rows) != 0:
-            return apology("sorry, you allready rated this destination", 400)
+            return apology("sorry, you already rated this destination", 400)
 
         with engine.connect() as con:
             statement = text("INSERT INTO destinations (dest_name, description, rating, user_id) VALUES (:dn, :dsc, :rate, :uid)").params(dn=name, dsc=description, rate=rating, uid=user_id)
@@ -135,10 +135,19 @@ def add_book():
         description = request.form.get("description")
         rating = request.form.get("rating")
         user_id = session["user_id"]
+
+        with engine.connect() as con:
+            statement = text("SELECT * FROM books WHERE book_name=:n AND user_id=:u").params(n=(request.form.get("book")), u=user_id)
+            rows = con.execute(statement).fetchall()
+        if len(rows) != 0:
+            return apology("sorry, you already rated this book", 400)
+
         with engine.connect() as con:
             statement = text("INSERT INTO books (book_name, author, description, rating, user_id) VALUES (:bn, :aut, :dsc, :rate, :uid)").params(bn=book, aut=author, dsc=description, rate=rating, uid=user_id)
             con.execute(statement)
         return redirect("./books")
+
+
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
@@ -177,6 +186,13 @@ def add_movie():
         description = request.form.get("description")
         rating = request.form.get("rating")
         user_id = session["user_id"]
+
+        with engine.connect() as con:
+            statement = text("SELECT * FROM movies WHERE movie_name=:n AND user_id=:u").params(n=(request.form.get("movie")), u=user_id)
+            rows = con.execute(statement).fetchall()
+        if len(rows) != 0:
+            return apology("sorry, you already rated this movie", 400)
+
         with engine.connect() as con:
             statement = text("INSERT INTO movies (movie_name, description, rating, user_id) VALUES (:mn, :dsc, :rate, :uid)").params(mn=name, dsc=description, rate=rating, uid=user_id)
             con.execute(statement)
