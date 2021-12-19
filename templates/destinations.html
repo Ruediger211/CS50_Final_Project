@@ -64,14 +64,16 @@
         </table>
     </div> -->
 
-    {% for row in destinations %}
+    <div>
+        {% for row in destinations %}
 
-        <div>
-            <form action="/destination/{{row[4]}}">
-                <button class="btn btn-success" type="submit">{{row[4]}}</button>
-            </form>
-        </div>
+            <div>
+                <form action="/destination/{{row[4]}}">
+                    <button class="btn btn-success" type="submit">{{row[4]}}</button>
+                </form>
+            </div>
 
-    {% endfor %}
+        {% endfor %}
+    </div>
 
 {% endblock %}
