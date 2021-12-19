@@ -57,7 +57,7 @@ def books():
 
     """Show books"""
     with engine.connect() as con:
-        statement = text("""SELECT * FROM books""")
+        statement = text("""SELECT DISTINCT book_name FROM books ORDER BY book_name""")
         books = con.execute(statement)
     return render_template("books.html", books=books)
 
@@ -67,7 +67,7 @@ def movies():
 
     """Show movies"""
     with engine.connect() as con:
-        statement = text("""SELECT * FROM movies""")
+        statement = text("""SELECT DISTINCT movie_name FROM movies ORDER BY movie_name""")
         movies = con.execute(statement)
     return render_template("movies.html", movies=movies)
 

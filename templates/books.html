@@ -1,11 +1,62 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Destinations
+    Books
 {% endblock %}
 
 {% block main %}
+
+<!--     <div class="form-group">
+        <form action="/add_book" method=GET>
+            <button class="btn btn-primary" type="submit" data-inline="true">Add</button>
+        </form>
+        <br>
+        <form action="/top10_books" method=GET>
+            <button class="btn btn-primary" type="submit" data-inline="true">Top 10</button>
+        </form>
+    </div> -->
+
+    <div>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <div>
+                            <form action="/add_book" method=GET value=books>
+                                <button class="btn btn-primary" type="submit" data-inline="true">Add</button>
+                            </form>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <form action="/top10_books" method=GET value=books>
+                                <button class="btn btn-primary" type="submit" data-inline="true">Top 10</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br><br>
+
     <table>
+        <thead>
+            <tr>
+                <th>Book</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in books %}
+            <tr>
+                <td><a href='/book/{{row[0]}}'>{{row[0]}}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- <table>
         <thead>
             <tr>
                 <th>ID</th>
@@ -26,28 +77,6 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>
-    <br><br>
-    <div class="form-group">
-        <form action="/add_book" method=GET>
-            <button class="btn btn-primary" type="submit" data-inline="true">Add</button>
-        </form>
-        <br>
-        <form action="/top10_books" method=GET>
-            <button class="btn btn-primary" type="submit" data-inline="true">Top 10</button>
-        </form>
-    </div>
+    </table> -->
+
 {% endblock %}
-
-<!--     <div class="form-group">
-        <form action="/add" method=GET value=destinations>
-            <button class="btn btn-primary" type="submit" data-inline="true">Add</button>
-        </form>
-        <br>
-        <form action="/top10" method=GET value=destinations>
-            <button class="btn btn-primary" type="submit" data-inline="true">Top 10</button>
-        </form>
-    </div>
-
-    <br><br> -->
-

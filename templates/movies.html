@@ -6,7 +6,7 @@
 
 {% block main %}
 
-    <div class="form-group">
+<!--     <div class="form-group">
         <form action="/add_movie" method=GET value=movies>
             <button class="btn btn-primary" type="submit" data-inline="true">Add</button>
         </form>
@@ -14,11 +14,49 @@
         <form action="/top10_movies" method=GET value=movies>
             <button class="btn btn-primary" type="submit" data-inline="true">Top 10</button>
         </form>
+    </div> -->
+
+    <div>
+        <table>
+            <tbody>
+                <tr>
+                    <td justify-content:center>
+                        <div>
+                            <form action="/add_movie" method=GET value=movies>
+                                <button class="btn btn-primary" type="submit" data-inline="true">Add</button>
+                            </form>
+                        </div>
+                    </td>
+                    <td justify-content:center>
+                        <div>
+                            <form action="/top10_movies" method=GET value=movies>
+                                <button class="btn btn-primary" type="submit" data-inline="true">Top 10</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <br><br>
 
     <table>
+        <thead>
+            <tr>
+                <th>Movie</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in movies %}
+            <tr>
+                <td><a href='/movie/{{row[0]}}'>{{row[0]}}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- <table>
         <thead>
             <tr>
                 <th>ID</th>
@@ -37,6 +75,6 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>
+    </table> -->
 
 {% endblock %}
