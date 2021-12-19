@@ -87,7 +87,7 @@ def add():
         user_id = session["user_id"]
 
         with engine.connect() as con:
-            statement = text("SELECT * FROM destinations WHERE dest_name=:n AND user_id=:u").params(n=(request.form.get("username")), u=user_id)
+            statement = text("SELECT * FROM destinations WHERE dest_name=:n AND user_id=:u").params(n=(request.form.get("dest_name")), u=user_id)
             rows = con.execute(statement).fetchall()
         if len(rows) != 0:
             return apology("sorry, you allready rated this destination", 400)
