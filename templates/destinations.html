@@ -41,6 +41,24 @@
 
     <br><br>
 
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in destinations %}
+                <tr>
+                    <td><a href='/destination/{{row[0]}}'>{{row[0]}}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
 <!--     <div>
         <table>
             <thead>
@@ -64,7 +82,7 @@
         </table>
     </div> -->
 
-    <div>
+<!--     <div>
         {% for row in destinations %}
 
             <div>
@@ -74,6 +92,6 @@
             </div>
 
         {% endfor %}
-    </div>
+    </div> -->
 
 {% endblock %}
