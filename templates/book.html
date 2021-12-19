@@ -6,32 +6,23 @@
 
 {% block main %}
     <h1>Ratings for {{book[0][2]}}:</h1>
-    <table>
+    <table cellpadding="0" cellspacing="0" width="100%" border="0">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Rating</th>
+                <th width=25%>Name</th>
+                <th width=25%>Rating</th>
+                <th width=50%>Description</th>
             </tr>
         </thead>
         <tbody>
             {% for row in book %}
             <tr>
-                <td>{{row[0]}}</td>
-                <td>{{row[1]}}</td>
-                <td>{{row[3]}}</td>
+                <td width=25%>{{row[0]}}</td>
+                <td width=25%>{{row[3]}}</td>
+                <td width=50%>{{row[1]}}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <!--<br><br>-->
-    <!--<div class="form-group">-->
-    <!--    <form action="/add" method=GET value=destinations>-->
-    <!--        <button class="btn btn-primary" type="submit" data-inline="true">Add</button>-->
-    <!--    </form>-->
-    <!--    <br>-->
-    <!--    <form action="/top10" method=GET value=destinations>-->
-    <!--        <button class="btn btn-primary" type="submit" data-inline="true">Top 10</button>-->
-    <!--    </form>-->
-    <!--</div>-->
+
 {% endblock %}
